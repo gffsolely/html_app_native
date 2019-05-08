@@ -1,0 +1,701 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <title>专题页面-与native交互</title>
+    <meta charset="utf-8" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+            line-height: 1.6;
+        }
+
+        body {
+            -webkit-touch-callout: none;
+            font-family: 'Lantinghei SC','Microsoft Yahei','Hiragino Sans GB','Helvetica Neue',Helvetica,Arial,sans-serif;
+            background-color: #fff;
+            line-height: inherit;
+        }
+
+        @media screen and (min-width:1025px) {
+            body {
+                font-family: "Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei",Arial,sans-serif;
+            }
+        }
+
+        body {
+            margin: 0;
+        }
+
+        article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+            display: block;
+        }
+
+        audio, canvas, progress, video {
+            display: inline-block;
+            vertical-align: baseline;
+        }
+
+            audio:not([controls]) {
+                display: none;
+                height: 0;
+            }
+
+        a {
+            background-color: transparent;
+        }
+
+            a:active, a:hover {
+                outline: 0;
+            }
+
+        abbr[title] {
+            border-bottom: 1px dotted;
+        }
+
+        b, strong {
+            font-weight: 700;
+        }
+
+        dfn {
+            font-style: italic;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin: .67em 0;
+        }
+
+        mark {
+            background: #ff0;
+            color: #000;
+        }
+
+        small {
+            font-size: 80%;
+        }
+
+        sub, sup {
+            font-size: 75%;
+            line-height: 0;
+            position: relative;
+            vertical-align: baseline;
+        }
+
+        sup {
+            top: -.5em;
+        }
+
+        sub {
+            bottom: -.25em;
+        }
+
+        img {
+            border: 0;
+        }
+
+        svg:not(:root) {
+            overflow: hidden;
+        }
+
+        figure {
+            margin: 1em 40px;
+        }
+
+        hr {
+            box-sizing: content-box;
+            height: 0;
+        }
+
+        pre {
+            overflow: auto;
+        }
+
+        code, kbd, pre, samp {
+            font-family: monospace,monospace;
+            font-size: 1em;
+        }
+
+        button, select {
+            text-transform: none;
+        }
+
+        button, html input[type=button], input[type=reset], input[type=submit] {
+            -webkit-appearance: button;
+            cursor: pointer;
+        }
+
+            button[disabled], html input[disabled] {
+                cursor: default;
+            }
+
+            button::-moz-focus-inner, input::-moz-focus-inner {
+                border: 0;
+                padding: 0;
+            }
+
+        input {
+            line-height: normal;
+        }
+
+            input[type=checkbox], input[type=radio] {
+                box-sizing: border-box;
+                padding: 0;
+            }
+
+            input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+                height: auto;
+            }
+
+            input[type=search] {
+                -webkit-appearance: textfield;
+                box-sizing: content-box;
+            }
+
+                input[type=search]::-webkit-search-cancel-button, input[type=search]::-webkit-search-decoration {
+                    -webkit-appearance: none;
+                }
+
+        fieldset {
+            border: 1px solid silver;
+            margin: 0 2px;
+            padding: .35em .625em .75em;
+        }
+
+        legend {
+            border: 0;
+            padding: 0;
+        }
+
+        textarea {
+            overflow: auto;
+        }
+
+        optgroup {
+            font-weight: 700;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+        }
+
+        td, th {
+            padding: 0;
+        }
+
+        a:focus, button:focus, input:focus {
+            outline: 0;
+        }
+
+        html {
+            min-height: 100%;
+        }
+
+        a {
+            text-decoration: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        li, p, ul {
+            padding: 0;
+            margin: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .clearfix:after {
+            content: ".";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+
+        button, h2 {
+            font-size: 15px;
+        }
+
+        button, html input[type=button], input[type=reset], input[type=submit] {
+            -webkit-appearance: button;
+            cursor: pointer;
+        }
+
+        button, select {
+            text-transform: none;
+        }
+
+        button {
+            overflow: visible;
+        }
+
+        button, input, optgroup, select, textarea {
+            color: inherit;
+            font: inherit;
+            margin: 0;
+        }
+
+        button, legend, td, th {
+            padding: 0;
+        }
+
+        button, img, legend {
+            border: 0;
+        }
+
+        .pace {
+            -webkit-pointer-events: none;
+            pointer-events: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+            .pace .pace-progress {
+                position: fixed;
+                top: 0;
+                z-index: 2000;
+                width: 100%;
+                height: 2px;
+                background: #1ab394;
+            }
+
+        .pace-inactive {
+            display: none;
+        }
+
+        body {
+            background-color: #eee;
+        }
+
+        .wrapper-main {
+            margin: 0 auto;
+            max-width: 420px;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        .wrapper-container {
+            background-color: #fff;
+        }
+
+        .logo-wallpaper {
+            width: 100%;
+            background-position: top center;
+            background-size: cover;
+            top: 0;
+            max-height: 236px;
+            min-height: 20px;
+            overflow: hidden;
+        }
+
+            .logo-wallpaper img {
+                width: 100%;
+            }
+
+        .content-con {
+            padding-bottom: 32px;
+            width: 100%;
+            background: #fff none repeat scroll 0 0;
+        }
+
+            .content-con .booking-area {
+                margin-bottom: 32px;
+                padding: 0 56px;
+                text-align: center;
+            }
+
+            .content-con .booking-title {
+                font-size: 20px;
+                line-height: 1.2;
+                margin: 20px 0;
+                color: #333;
+            }
+
+        .booking-button {
+            background: #24aa42 none repeat scroll 0 0;
+            border-radius: 3px;
+            color: #fff;
+            line-height: 36px;
+            width: 128px;
+        }
+
+        .content-con .booking-time {
+            margin-top: 40px;
+            font-size: 15px;
+            color: #333;
+            line-height: 2em;
+        }
+
+        .content-con .booking-description {
+            font-family: "Lantinghei SC","Microsoft Yahei","Hiragino Sans GB","Helvetica Neue",Helvetica,Arial,sans-serif;
+            font-size: 13px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        article {
+            margin:11px 25px 32px 25px;
+        }
+
+       article p {
+           margin: 6px 0;
+       }
+
+        p {
+            line-height: 1.6;
+            margin: 6px 0;
+        }
+
+        dl, menu, ol, p, pre, ul {
+            margin: 10px 0;
+        }
+
+        p, pre {
+            color: #555;
+        }
+
+        article img {
+            margin: 10px 0;
+            width: 100%;
+        }
+
+        .show-red-border {
+            border: 1px solid red;
+        }
+
+        .tilde {
+            width: 60%;
+            margin: 0 auto;
+            border-bottom: 1px solid #efefef;
+        }
+
+        .tab-con table {
+            width: 100%;
+        }
+
+            .tab-con table td {
+                width: 50%;
+            }
+
+        .tab-con .tab-con-href {
+            margin-bottom: .5em;
+            padding-top: 1em;
+            width: 97%;
+            display: block;
+            margin-left: 2%;
+            font: 400 1.2em/1.5em 'microsoft yahei';
+            color: #000;
+        }
+
+            .tab-con .tab-con-href .img {
+                width: 43%;
+                margin-right: 3%;
+                position: relative;
+                border-radius: .8em;
+                overflow: hidden;
+                float: left;
+            }
+
+                .tab-con .tab-con-href .img img {
+                    width: 100%;
+                    border-radius: .8em;
+                    display: block;
+                    margin: initial;
+                    max-width: 72px;
+                }
+
+                .tab-con .tab-con-href .img i {
+                    height: 2.5em;
+                    width: 2.5em;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                }
+
+                .tab-con .tab-con-href .img .hoticon {
+                    background-size: 2.5em auto;
+                }
+
+            .tab-con .tab-con-href .info {
+                float: left;
+                width: 54%;
+            }
+
+                .tab-con .tab-con-href .info h4 {
+                    font: .8em/1.2em 'microsoft yahei';
+                    color: #555;
+                    margin-bottom: .3em;
+                    overflow: hidden;
+                    margin-top: .2em;
+                    white-space: pre;
+                    text-overflow: ellipsis;
+                }
+
+                .tab-con .tab-con-href .info .tab-con-download {
+                    font: 300 .7em 'microsoft yahei';
+                    cursor: pointer;
+                    background-color: #24c8af;
+                    border-radius: 30px;
+                    text-align: center;
+                    padding: 4%;
+                    display: inline-block;
+                    width: 80%;
+                    max-width: 55px;
+                    color: #fff;
+                    margin-top: 8%;
+                    margin-left: 6px;
+                }
+
+                    .tab-con .tab-con-href .info .tab-con-download:hover {
+                        background-color: #24c8f6;
+                    }
+
+
+        .tab-con-single .info {
+            width: 80%;
+            margin: 10px auto;
+            text-align: center;
+        }
+
+        .tab-con-single .tab-con-href .info h4 {
+            font: 1.2em 'microsoft yahei';
+            color: #333;
+            margin-bottom: .3em;
+            overflow: hidden;
+            margin-top: 3%;
+            white-space: pre;
+            text-overflow: ellipsis;
+        }
+        .tab-con-single .info .app-desc {
+            display: block;
+            font: 0.8em 'microsoft yahei';
+            color: #888;
+            overflow: hidden;
+            white-space: pre;
+            text-overflow: ellipsis;
+            margin: 3% 0;
+        }
+        .tab-con-single .tab-con-href .info .tab-con-download, .tab-con-tone .tab-con-href > .down > .tab-con-download {
+            font: 300 1em 'microsoft yahei';
+            cursor: pointer;
+            background-color: #24c8af;
+                    border-radius: 30px;
+            text-align: center;
+            padding: 2%;
+            display: inline-block;
+            width: 80%;
+            max-width: 100px;
+            color: #fff;
+        }
+
+            .tab-con-single .tab-con-href .info .tab-con-download:hover, .tab-con-tone .tab-con-href > .down > .tab-con-download:hover {
+                background-color: #24c8f6;
+            }
+        .tab-con-single .tab-con-href .img {
+            width: 50%;
+            margin: 10px auto;
+        }
+
+            .tab-con-single .tab-con-href .img img {
+                width: 100%;
+                border-radius: .8em;
+                display: block;
+                margin: 0 auto;
+                max-width: 100px;
+            }
+        .tab-con-tone {
+            position: absolute;
+            top: 200px;
+            left: 0px;
+            width: 100%;
+        }
+            .tab-con-tone .tab-con-href {
+                width: 83%;
+                margin: 0 auto;
+                background-color: #fff;
+                border-radius: 5px;
+                display: block;
+                height: 40px;
+                padding: 14px 20px;
+                box-shadow: 1px 3px 10px rgba(0,0,0,0.1);
+            }
+         .tab-con-tone .tab-con-href>.img{
+                width: 16%;
+             float:left;
+         }
+            .tab-con-tone .tab-con-href > .img > img {
+                width: 41px;
+                border-radius: 50%;
+            }
+            .tab-con-tone .tab-con-href > .info {
+                width: 50%;
+                float: left;
+                font-size: 12px;
+                padding: 2px 0;
+                color: #333;
+                    overflow: hidden;
+    white-space: nowrap;
+            }
+                .tab-con-tone .tab-con-href > .info>.app-desc {
+                    color: #999;
+                }
+         .tab-con-tone .tab-con-href>.down{
+             float:right;
+            line-height: 38px;
+         }
+            .tab-con-tone .tab-con-href::after {
+                content: ' ';
+                clear: both;
+            }
+            .tab-con-tone .tab-con-href > .down > .tab-con-download {
+                width: 60px;
+                font-size: 12px;
+                padding: 6px 0;
+            }
+       .cont-title-area {
+           display: flex;
+  align-items: flex-start;
+   padding: 5px 20px;
+   max-height: 60px;
+    overflow: hidden;
+       }
+        .cont-title-area>.title-icon{
+             background-color:#24C8AF;
+                 width: 5px;
+        height: 26px;
+    margin-top: 4px;
+        }
+       .cont-title-area> .title-h2{
+              padding: 0px 0 0 15px;
+       }
+       .cont-title-area> .title-h2>h2{
+               font-size: 20px;
+               color:#333;
+       }
+     .content-con img{
+         border-radius:8px;
+     }
+    </style>
+</head>
+<body>
+    <div class="wrapper-main">
+        <header class="m-header"></header>
+        <div class="wrapper-container">
+            <section class="">
+                <div class="logo-wallpaper"><img src="http://i.mycheer.cn/sreen/2015/11/3/c2ccbfeb431.jpg" /> </div>
+                <div class="tab-con-tone">
+                    <a href="javascript:;" data-sid="9657111111111111" data-spkgname="" data-stitle="爱奇艺视频" class="tab-con-href cli-app">
+                        <div class="img"><img src="http://b.mycheer.cn/icon/2016/5d/i964025277.png" alt="爱奇艺视频" title="爱奇艺视频"></div>
+                        <div class="info">
+                            <h4>爱奇艺视频</h4>
+                            <span class="app-desc">202.94MB · 36456人试玩</span>
+                        </div>
+                        <div class="down">
+                            <span class="tab-con-download" downurl="##">打开</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="content-con" style="margin-top: 50px;">
+                    <div class="cont-title-area">
+                        <div class="title-icon"></div>
+                        <div class="title-h2"><h2>宝石研物语：在休闲时光里的美 丽童话故事</h2></div>
+                    </div>
+
+                    <article>
+                        <p>预约奖：限量礼包（成功参与预约既得）</p><p>预约活动说明</p><p>1.预约将在 5 月 12 日截至</p>
+                        <p>2.预约大礼包会在 5 月 13 日游戏开服前发放到你的预约账号中，可在「我的礼包」中查看。</p>
+                        <p>3.游戏开服后还有更多首发活动，敬请期待！</p>
+                        <img src="http://i.mycheer.cn/sreen/2015/11/3/219bd1e48e1.jpg">
+
+                        <div class="tab-con-single">
+                                <a href="javascript:;" data-sid="9657111111111111" data-spkgname="" data-stitle="爱奇艺视频" class="tab-con-href cli-app">
+                                    <div class="img"><img src="http://b.mycheer.cn/icon/2016/5d/i964025277.png" alt="爱奇艺视频" title="爱奇艺视频" ></div>
+                                    <div class="info">
+                                        <h4>爱奇艺视频</h4>
+                                        <span class="app-desc">爱奇艺视频-让生活充满奇迹</span>
+                                        <span class="tab-con-download" downurl="##">打开</span>
+                                    </div>
+                                </a>
+                        </div>
+
+                        <div class="tab-con">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <a href="javascript:;" data-sid="9657111111111111" data-spkgname="" data-stitle="爱奇艺视频" class="tab-con-href cli-app">
+                                            <div class="img"><img src="http://b.mycheer.cn/icon/2016/5d/i964025277.png" alt="爱奇艺视频" title="爱奇艺视频" style="display: block;"><i class="hoticon"></i></div>
+                                            <div class="info">
+                                                <h4>爱奇艺视频</h4>
+                                                <span class="tab-con-download" downurl="##">打开</span>
+                                            </div>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="javascript:;" data-sid="96571222222222" data-spkgname="" data-stitle="爱奇艺视频" class="tab-con-href cli-app">
+                                            <div class="img"><img src="http://b.mycheer.cn/icon/2016/5d/i964025277.png" alt="爱奇艺视频" title="爱奇艺视频" style="display: block;"><i class="hoticon"></i></div>
+                                            <div class="info">
+                                                <h4>爱奇艺视频</h4>
+                                                <span class="tab-con-download" downurl="##">打开</span>
+                                            </div>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+
+        <section class="ui-backtop "></section>
+        <footer class="m-item-nav"></footer>
+    </div>
+    <script type="text/javascript">
+
+        var clientfun = function () {
+            'gff-funs';
+            return {
+                init: function () {
+                    var self = this;
+                    self.cli_openApp();
+                },
+                cli_openApp: function () {
+                    var cliapp = document.getElementsByClassName('cli-app');
+                    for (var i = 0; i < cliapp.length; i++) {
+                        var crow = cliapp[i];
+                        crow.addEventListener("click", function (e) {
+                            e.stopPropagation();
+                            var s = e.currentTarget, s_id = s.getAttribute('data-sid'), s_pkgname = s.getAttribute('data-spkgname'), s_title = s.getAttribute('data-stitle'), s_type = s.getAttribute("data-ctype");
+                            try {
+							    // app中暴露出来的程序调用接口（一般是内嵌webview中提供方法）
+								// 用window.android来调用接口方法（其中android为app为js暴露的JavascriptInterface接口名称），openApp 为具体调用方法
+                                window.android.openApp(Number(s_id), s_pkgname, s_title, 0, Number(s_type));
+                            } catch (e) {
+                                console.log(e.message + e.description);
+                            }
+
+                        }, false);
+                    }
+                },
+            }
+        }();
+        clientfun.init();
+    </script>
+</body>
+</html>
