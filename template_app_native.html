@@ -683,8 +683,8 @@
                             e.stopPropagation();
                             var s = e.currentTarget, s_id = s.getAttribute('data-sid'), s_pkgname = s.getAttribute('data-spkgname'), s_title = s.getAttribute('data-stitle'), s_type = s.getAttribute("data-ctype");
                             try {
-							    // app中暴露出来的程序调用接口（一般是内嵌webview中提供方法）
-								// 用window.android来调用接口方法（其中android为app为js暴露的JavascriptInterface接口名称），openApp 为具体调用方法
+				// app中暴露出来的程序调用接口（一般是内嵌webview中提供方法）
+				// 用window.android来调用接口方法（其中android为app为js暴露的JavascriptInterface接口名称），openApp 为具体调用方法
                                 window.android.openApp(Number(s_id), s_pkgname, s_title, 0, Number(s_type));
                             } catch (e) {
                                 console.log(e.message + e.description);
