@@ -22,8 +22,8 @@ public class MainActivity extends Activity {
         myWebview = (WebView)findViewById(R.id.myWview);
         WebSettings wsetting = myWebview.getSettings();
         wsetting.setJavaScriptEnabled(true);
-		// web页面地址
-        myWebview.loadUrl("http://127.0.0.1/1.html");
+	// web页面地址
+        myWebview.loadUrl("http://127.0.0.1/template_app_native.html");
         myWebview.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView wview, String url) {
@@ -38,14 +38,14 @@ public class MainActivity extends Activity {
                 return super.onJsAlert(view, url, message, result);
             }
         });
-		//html页面调用 webview 方法的入口，接口。-- 这里的"android" 在页面上使用为 window.android.方法()
+	//html页面调用 webview 方法的入口，接口。-- 这里的"android" 在页面上使用为 window.android.方法()
         myWebview.addJavascriptInterface(new AndroidToastForJs(MainActivity.this),"android");
     }
 
     // webview 调用html页面上的方法
     public void setMsgToWebpage()
     {
-		//getNativeMsg 为web页面中js 方法
+	//getNativeMsg 为web页面中js 方法
         myWebview.loadUrl("javascript:getNativeMsg('android调用web页面js方法')");
     }
 }
@@ -61,6 +61,6 @@ public class AndroidToastForJs {
     @JavascriptInterface
     public void openApp(int appid, String pkgname,  String title, int ctype)
     {
-		//实现处理逻辑...
+	//实现处理逻辑...
     }
 }
